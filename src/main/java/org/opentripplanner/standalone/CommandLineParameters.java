@@ -54,7 +54,7 @@ public class CommandLineParameters implements Cloneable {
 
     @Parameter(names = {"--build"}, validateWith = ReadableDirectory.class,
             description = "Build graphs at specified paths.", variableArity = true)
-    public File build;
+    public List<File> build;
 
     @Parameter(names = {"--cache"}, validateWith = ReadWriteDirectory.class,
             description = "The directory under which to cache OSM and NED tiles. Default is BASE_PATH/cache.")
