@@ -311,7 +311,7 @@ public class GraphBuilder implements Runnable {
         }
         graphBuilder.addModule(new EmbedConfig(builderConfig, routerConfig));
         if (builderParams.htmlAnnotations) {
-            graphBuilder.addModule(new AnnotationsToHTML(new File(params.build, "report.html")));
+            graphBuilder.addModule(new AnnotationsToHTML(new File(dir, "report.html")));
         }
         graphBuilder.serializeGraph = ( ! params.inMemory ) || params.preFlight;
         return graphBuilder;
