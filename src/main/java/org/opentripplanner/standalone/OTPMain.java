@@ -108,19 +108,22 @@ public class OTPMain {
 
         /* Start graph builder if requested */
         if (params.build != null) {
-            GraphBuilder graphBuilder = GraphBuilder.forDirectory(params, params.build); // TODO multiple directories
-            if (graphBuilder != null) {
-                graphBuilder.run();
-                /* If requested, hand off the graph to the server as the default graph using an in-memory GraphSource. */
-                if (params.inMemory || params.preFlight) {
-                    Graph graph = graphBuilder.getGraph();
-                    graph.index(new DefaultStreetVertexIndexFactory());
-                    // FIXME set true router IDs
-                    graphService.registerGraph("", new MemoryGraphSource("", graph, graphBuilder.routerConfig));
+         /* For loop to support multiple directories. */
+            for (int i = 0; i < params.build.size(); i += 1) {
+                GraphBuilder graphBuilder = GraphBuilder.forDirectory(params, params.build.get(i));
+                if (graphBuilder != null) {
+                    graphBuilder.run();
+                    /* If requested, hand off the graph to the server as the default graph using an in-memory GraphSource. */
+                    if (params.inMemory || params.preFlight) {
+                        Graph graph = graphBuilder.getGraph();
+                        graph.index(new DefaultStreetVertexIndexFactory());
+                        // FIXME set true router IDs
+                        graphService.registerGraph("", new MemoryGraphSource("", graph, graphBuilder.routerConfig));
+                    }
+                } else {
+                    LOG.error("An error occurred while building the graph. Exiting.");
+                    System.exit(-1);
                 }
-            } else {
-                LOG.error("An error occurred while building the graph. Exiting.");
-                System.exit(-1);
             }
         }
 
