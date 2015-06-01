@@ -191,7 +191,7 @@ public class GraphBuilder implements Runnable {
         JsonNode routerConfig = null;
         File demFile = null;
         LOG.info("Searching for graph builder input files in {}", dir);
-        if ( ! dir.isDirectory() && dir.canRead()) {
+        if ( (!dir.isDirectory() && dir.canRead()) || !dir.exists()) {
             LOG.error("'{}' is not a readable directory.", dir);
             return null;
         }
