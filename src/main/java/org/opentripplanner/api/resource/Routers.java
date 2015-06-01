@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List
+import java.util.ArrayList
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -270,7 +272,7 @@ public class Routers {
         // set up the build, using default parameters
         // this is basically simulating calling otp -b on the command line
         CommandLineParameters params = otpServer.params.clone();
-        params.build = tempDir;
+        params.build.add(tempDir);
         params.inMemory = true;
         
         GraphBuilder graphBuilder = GraphBuilder.forDirectory(params, tempDir);
